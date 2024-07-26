@@ -7,11 +7,14 @@ const navIcons = [
   {src:'/assets/icons/black-heart.svg',alt:'heart'},
   {src:'/assets/icons/user.svg',alt:'user'},
 ]
-
+// navbar is going to use a semantic HTML5 header tag 
 const Navbar = () => {
   return (
+     // w-full is tailwind CSS class
     <header className="w-full">
+    {/* "nav" is defined in global.css */}
       <nav className="nav">
+        {/* "/" is point towards home */}
         <Link href="/" className="flex items-center gap-1">
         <Image
           src="/assets/icons/logo.svg"

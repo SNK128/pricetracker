@@ -1,8 +1,14 @@
+// This is out primary page for home component
+
+
 import React from 'react'
 import Image from "next/image"
+import Searchbar from '@/components/Searchbar'
+import HeroCarousel from '@/components/HeroCarousel'
 
 const Home = () => {
   return (
+    // <> </> is an empty react fragement which allows to add more elements within it
     <>
       <section className="px-6 md:px-20 py-24 border-2 border-red-500">
         <div className="flex max-xl:flex-col gap-16">
@@ -26,10 +32,10 @@ const Home = () => {
               Powerful, self-serve product and growth analytics to help you convert, engage, and retain more.
             </p>
 
-            Searchbar
+            <Searchbar/>
           </div>
            
-           HeroCarousel
+           <HeroCarousel/>
         </div>
       </section>
 
