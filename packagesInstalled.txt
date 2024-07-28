@@ -1,0 +1,7 @@
+npm install react-responsive-carousel
+
+npm install --save-dev typescript @types/react @types/react-dom    // optional..done bcus of some configured error
+
+npm install axios cheerio  // axios for making api calls   and   cheerio : a fast & elegant lib for parsing manipulating HTML and XML
+
+// a data scrapping requires parsing HTML content

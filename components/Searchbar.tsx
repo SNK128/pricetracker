@@ -1,4 +1,5 @@
 "use client" //if u need interctivity , consider converting part of this to a client component
+import { scrapeAndStoreProduct } from '@/lib/actions';
 //import React from 'react'   // use a rafce to create a base react arrow component  install ES7+ react... to use this shortcut
 
 import { FormEvent, useState } from 'react'
@@ -25,7 +26,7 @@ const Searchbar = () => {
   const [searchPrompt, setSearchPrompt] = useState('');
   const [isLoading, setisLoading] = useState(false);
 
-  const handleSubmit= (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit= async(event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const isValidLink = isValidAmazonProductURL(searchPrompt);
@@ -38,7 +39,7 @@ const Searchbar = () => {
 
         //scrape the product page\
         // create first server action
-
+        const product=await scrapeAndStoreProduct(searchPrompt);
 
       } catch (error) {
         console.log(error);
