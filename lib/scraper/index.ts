@@ -2,7 +2,7 @@ import { hostname } from "os";
 
 import axios from "axios";
 import * as cheerio from 'cheerio';
-import { extractPrice } from "../utils";
+import { extractCurrency, extractDescription, extractPrice } from "../utils";
 
 export async function scrapeAmazonProduct(url:string) {
 
@@ -53,15 +53,45 @@ export async function scrapeAmazonProduct(url:string) {
             $('.a-size-base.a-color-price')
           );
 
-          const outOfStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';
+          const outOfStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';//#a-size-medium a-color-success
 
           const images = 
                 $('#imgBlkFront').attr('data-a-dynamic-image') || 
-                $('#landingImage').attr('data-a-dynamic-image');
+                $('#landingImage').attr('data-a-dynamic-image')||
+                '{}';
+
+          const imageURLs=Object.keys(JSON.parse(images));
+
+          const currency=extractCurrency($(' .a-price-symbol'))
+
+          const discountRate=$('.savingsPercentage').text().replace(/[-%]/g,"");
+
+          const description=extractDescription($)
 
 
 
-        console.log({title,currentPrice,originalPrice,outOfStock,images})
+        //console.log({title,currentPrice,originalPrice,outOfStock,images,imageURLs,currency,discountRate})
+        const data= {
+            url,
+            currency: currency|| '$',
+            image: imageURLs[0],
+            title,
+            currentPrice: Number(currentPrice) || Number(originalPrice),
+            originalPrice:Number(originalPrice) || Number(currentPrice),
+            priceHistory: [],
+            discountRate:Number(discountRate),
+            category:'category',
+            reviewsCount:100,
+            stars:4.5,
+            isOutOfStock:outOfStock,
+            description,
+            lowestPrice:Number(currentPrice) || Number(originalPrice),
+            highestPrice:Number(originalPrice) || Number(currentPrice),
+            average:Number(currentPrice) || Number(originalPrice),
+        }
+
+        console.log(data);
+        return data;
 
     } catch (error:any) {
         throw new Error(`Failed to scrape product:${error.message}`)
