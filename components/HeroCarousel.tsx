@@ -1,6 +1,6 @@
 "use client"
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader...this package requires client side rendering
 import { Carousel } from 'react-responsive-carousel';
 import Image from "next/image";
 
@@ -34,7 +34,7 @@ const HeroCarousel = () => {
                 </div>
                 <div>
                     <img src="assets/3.jpeg" alt="Description of image 3"/>
-                    <p className="legend">Legend 3</p>
+                    <p className ="legend">Legend 3</p>
                 </div> */}
 
                 {heroImages.map((image) =>( 
