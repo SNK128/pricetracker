@@ -89,7 +89,7 @@ const transporter = nodemailer.createTransport({
   service: 'hotmail',
   port: 2525,
   auth: {
-    user: 'sagniknayak128@outlook.com',
+    user: 'sagniknayak129@outlook.com',
     pass: process.env.EMAIL_PASSWORD,
   },
   maxConnections: 1
@@ -97,7 +97,7 @@ const transporter = nodemailer.createTransport({
   
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   const mailOptions = {
-    from: 'sagniknayak128@outlook.com',
+    from: 'sagniknayak129@outlook.com',
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,
