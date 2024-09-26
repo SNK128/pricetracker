@@ -1,26 +1,200 @@
+// "use client"
+
+// import React, { FormEvent, Fragment } from 'react'
+// import { useState } from 'react'
+// import { Dialog, Transition } from '@headlessui/react'
+// import Image from 'next/image'
+// import { doesNotThrow } from 'assert'
+// import { addUserEmailToProduct } from '@/lib/actions'
+
+// interface Props {
+//   productId:string
+// }
+
+// const Modal = ({productId}: Props) => {
+//   let [isOpen, setIsOpen] = useState(true)
+//     const [isSubmitting, setIsSubmitting] = useState(false);
+//     const [email, setEmail] = useState('');
+
+//   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+//     // as we dont want to reload the page
+//     e.preventDefault();
+//     setIsSubmitting(true);
+    
+//     await addUserEmailToProduct(productId, email);
+
+//     setIsSubmitting(false)
+//     setEmail('')
+//     closeModal()
+//   }
+
+//    const openModal = () => setIsOpen(true);
+//    const closeModal = () => setIsOpen(false);
+
+
+
+//   return (
+//     <>
+//     <button type="button" className="btn" onClick={openModal}>
+//       Track
+//     </button>
+
+
+//     {/* from headlessui */}
+
+
+
+//     <Transition appear show ={isOpen} as={Fragment}>
+//     <Dialog as="div" onClose={closeModal} className="dialog-container">
+
+
+//     {/* Apply the overlay here */}
+
+
+//     <div className="fixed inset-0 bg-black bg-opacity-50" /> 
+//     <div className="min-h-screen px-4 text-center">
+//              <Transition.Child
+//               as={Fragment}
+//               enter="ease-out duration-300"
+//               enterFrom="opacity-0"
+//               enterTo="opacity-100"
+//               leave="ease-in duration-200"
+//               leaveFrom="opacity-100"
+//               leaveTo="opacity-0"
+//             >
+
+
+
+//               {/* overlay not working properly as it is depricated */}
+
+
+
+
+//               <Dialog.Panel className="fixed inset-0" />   
+//             </Transition.Child>
+
+
+//             {/* center the dialog box */}
+
+
+
+//             <span
+//             className="inline-block h-screen align-middle" aria-hidden="true"
+//             />
+//             <Transition.Child as={Fragment}
+//             enter="ease-out duration-300"
+//             enterFrom="opacity-0 scale-95"
+//             enterTo="opacity-100 scale-100"
+//             leave="ease-in duration-200"
+//             leaveFrom="opacity-100 scale-100"
+//             leaveTo="opacity-0 scale-95"
+//             >
+
+//               <div className="dialog-content">
+//                 <div className="flex flex-col">
+//                   <div className="flex justify-between"> 
+//                     <div className="p-3 border border-gray-200 rounded-10">
+//                       <Image
+//                       src="/assets/icons/logo.svg"
+//                       alt="logo"
+//                       width={28}
+//                       height={28}
+//                       />
+//                     </div>
+//                     <Image 
+//                     src="/assets/icons/x-close.svg"
+//                     alt="close"
+//                     width={24}
+//                     height={24}
+//                     className="cursor-pointer"
+//                     onClick={closeModal}
+//                     />
+//                   </div>
+//                     <h4 className="dialog-head_text">
+//                        Stay updated with product pricing alerts right in your inbox!
+//                     </h4>
+
+//                     <p className="text-sm text-gray-600 mt-2">
+//                         Never miss a bargain again with our timely alerts!
+//                     </p>
+//                 </div>
+
+
+//                      <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
+//                    <label htmlFor="email" className="text-sm font-medium text-gray-700">
+//                      Email address
+//                    </label>
+//                    <div className="dialog-input_container">
+//                     <Image 
+//                       src="/assets/icons/mail.svg"
+//                       alt='mail'
+//                       width={18}
+//                       height={18}
+//                     />
+
+//                     <input 
+//                       required
+//                       type="email"
+//                       id="email"
+//                       value={email}
+
+
+
+
+//                        {/* e.target.value is the value that user has typed in the box */}
+
+
+
+//                       onChange={(e) => setEmail(e.target.value)}
+//                       placeholder="Enter your email address"
+//                       className='dialog-input'
+//                     />
+//                   </div>
+
+//                   <button type="submit"
+//                     className="dialog-btn"
+//                   >
+//                     {isSubmitting ? 'Submitting...' : 'Track'}
+//                   </button>
+//                 </form>
+//               </div>
+
+//             </Transition.Child>
+
+            
+//       </div>
+//     </Dialog>
+//     </Transition>
+//     </>
+//   )
+// }
+
+// export default Modal
+
+
+
+
 "use client"
 
 import React, { FormEvent, Fragment } from 'react'
 import { useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image'
-import { doesNotThrow } from 'assert'
 import { addUserEmailToProduct } from '@/lib/actions'
 
 interface Props {
-  productId:string
+  productId: string
 }
 
-const Modal = ({productId}: Props) => {
-  let [isOpen, setIsOpen] = useState(true)
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [email, setEmail] = useState('');
+const Modal = ({ productId }: Props) => {
+  let [isOpen, setIsOpen] = useState(false) // Initially, the modal should be closed
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    // as we dont want to reload the page
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     await addUserEmailToProduct(productId, email);
 
     setIsSubmitting(false)
@@ -28,32 +202,24 @@ const Modal = ({productId}: Props) => {
     closeModal()
   }
 
-   const openModal = () => setIsOpen(true);
-   const closeModal = () => setIsOpen(false);
-
-
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   return (
     <>
-    <button type="button" className="btn" onClick={openModal}>
-      Track
-    </button>
+      <button type="button" className="btn" onClick={openModal}>
+        Track
+      </button>
 
+      {/* from headlessui */}
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" onClose={closeModal} className="dialog-container">
+          {/* Apply the overlay here */}
+          <div className="fixed inset-0 bg-black bg-opacity-50" /> 
+          <div className="min-h-screen px-4 text-center">
+            <span className="inline-block h-screen align-middle" aria-hidden="true" />
 
-    {/* from headlessui */}
-
-
-
-    <Transition appear show ={isOpen} as={Fragment}>
-    <Dialog as="div" onClose={closeModal} className="dialog-container">
-
-
-    {/* Apply the overlay here */}
-
-
-    <div className="fixed inset-0 bg-black bg-opacity-50" /> 
-    <div className="min-h-screen px-4 text-center">
-             <Transition.Child
+            <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
@@ -62,109 +228,67 @@ const Modal = ({productId}: Props) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-
-
-
-              {/* overlay not working properly as it is depricated */}
-
-
-
-
-              <Dialog.Panel className="fixed inset-0" />   
-            </Transition.Child>
-
-
-            {/* center the dialog box */}
-
-
-
-            <span
-            className="inline-block h-screen align-middle" aria-hidden="true"
-            />
-            <Transition.Child as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-            >
-
-              <div className="dialog-content">
+              <Dialog.Panel className="dialog-content">
                 <div className="flex flex-col">
-                  <div className="flex justify-between"> 
+                  <div className="flex justify-between">
                     <div className="p-3 border border-gray-200 rounded-10">
                       <Image
-                      src="/assets/icons/logo.svg"
-                      alt="logo"
-                      width={28}
-                      height={28}
+                        src="/assets/icons/logo.svg"
+                        alt="logo"
+                        width={28}
+                        height={28}
                       />
                     </div>
-                    <Image 
-                    src="/assets/icons/x-close.svg"
-                    alt="close"
-                    width={24}
-                    height={24}
-                    className="cursor-pointer"
-                    onClick={closeModal}
+                    <Image
+                      src="/assets/icons/x-close.svg"
+                      alt="close"
+                      width={24}
+                      height={24}
+                      className="cursor-pointer"
+                      onClick={closeModal}
                     />
                   </div>
-                    <h4 className="dialog-head_text">
-                       Stay updated with product pricing alerts right in your inbox!
-                    </h4>
 
-                    <p className="text-sm text-gray-600 mt-2">
-                        Never miss a bargain again with our timely alerts!
-                    </p>
+                  <h4 className="dialog-head_text">
+                    Stay updated with product pricing alerts right in your inbox!
+                  </h4>
+
+                  <p className="text-sm text-gray-600 mt-2">
+                    Never miss a bargain again with our timely alerts!
+                  </p>
                 </div>
 
-
-                     <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
-                   <label htmlFor="email" className="text-sm font-medium text-gray-700">
-                     Email address
-                   </label>
-                   <div className="dialog-input_container">
-                    <Image 
+                <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
+                  <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                    Email address
+                  </label>
+                  <div className="dialog-input_container">
+                    <Image
                       src="/assets/icons/mail.svg"
-                      alt='mail'
+                      alt="mail"
                       width={18}
                       height={18}
                     />
-
-                    <input 
+                    <input
                       required
                       type="email"
                       id="email"
                       value={email}
-
-
-
-
-                       {/* e.target.value is the value that user has typed in the box */}
-
-
-
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)} // Update state with user input
                       placeholder="Enter your email address"
-                      className='dialog-input'
+                      className="dialog-input"
                     />
                   </div>
 
-                  <button type="submit"
-                    className="dialog-btn"
-                  >
+                  <button type="submit" className="dialog-btn">
                     {isSubmitting ? 'Submitting...' : 'Track'}
                   </button>
                 </form>
-              </div>
-
+              </Dialog.Panel>
             </Transition.Child>
-
-            
-      </div>
-    </Dialog>
-    </Transition>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   )
 }
